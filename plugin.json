@@ -1,0 +1,88 @@
+{
+	"name": "Password Protect",
+	"version": "1.2.5",
+	"description": "Provides password protection for your entire site or private albums and sets.",
+	"description_long": "Provides password protection for your entire site or private albums and sets.",
+	"demo": "http://koken.me",
+	"author": {
+		"name": "Koken",
+		"link": "https://store.koken.me/authors/koken"
+	},
+
+	"koken_version_required": "0.20.4",
+
+	"custom_sources": {
+		"koken_password_protected": {
+			"label": "Password protected only",
+			"scope": "albums",
+			"filters": [
+				"visibility=private",
+				"koken_password_protect=1"
+			]
+		}
+	},
+
+	"data": {
+		"scope": {
+			"header": "Password protect",
+			"type": "select",
+			"info": "Password protection may be applied to your entire site or only to private albums and sets.",
+			"options": [
+				{ "value": "site", "label": "Entire site" },
+				{ "value": "album", "label": "Private albums and sets only" }
+			],
+			"value": "album"
+		},
+
+		"password": {
+			"label": "Site password",
+			"type": "string",
+			"value": "",
+			"placeholder": "Assign password to enter site",
+			"info": "Site visitors will be asked to enter the password assigned here.",
+			"validation": {
+				"type": "not_empty",
+				"error_message": "Enter a password"
+			},
+			"dependencies": {
+				"evaluate": "all",
+				"conditions": [
+					{
+						"option": "scope",
+						"equals": "site"
+					}
+				]
+			}
+		},
+
+		"master_password": {
+			"label": "Master password",
+			"type": "string",
+			"value": "",
+			"placeholder": "Optional. Leave blank for no master password.",
+			"info": "A master password grants access to any password protected album or set. To use, assign passwords to private album and sets in the Library, then assign a master password here to access them all.",
+			"dependencies": {
+				"evaluate": "all",
+				"conditions": [
+					{
+						"option": "scope",
+						"equals": "album"
+					}
+				]
+			}
+		},
+
+		"expire": {
+			"label": "Expire session",
+			"type": "select",
+			"info": "After a user signs in to protected content, they will not be asked for their password again until this amount of time has elapsed.",
+			"options": [
+				{"value": 86400, "label": "After 24 hours"},
+				{"value": 172800, "label": "After 48 hours"},
+				{"value": 604800, "label": "After one week"},
+				{"value": 0, "label": "Immediately when browser is closed"}
+			],
+			"value": 86400
+		}
+	}
+}

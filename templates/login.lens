@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="robots" content="noindex">
+	<title>Password required / {{ site.title }}</title>
+	<koken:asset file="password-css/style.css" />
+</head>
+<body class="k-lens-login">
+	<div id="klogin_form">
+		<koken:form>
+			<div class="form">
+				<h1>Password required</h1>
+				<koken:not empty="messages.koken_password_error">
+					<p class="password-error">
+						{{ messages.koken_password_error }}
+					</p>
+				</koken:not>
+				<input id="klogin_input" type="password" name="password" autofocus placeholder="Enter password" />
+				<button type="submit" disabled>Go</button>
+			</div>
+			<div id="klogin_title"><a href="{{ location.site_url }}" title="{{ site.title }}">{{ site.title }}</a></div>
+		</koken:form>
+	</div>
+	<script>
+		$(document).ready(function() {
+		     $('input[type="password"]').keyup(function() {
+	           $('button[type="submit"]').attr('disabled', !$(this).val().length);
+		     }).trigger('keyup');
+	 	});
+	</script>
+</body>
+</html>
